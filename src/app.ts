@@ -1,3 +1,5 @@
+/*eslint-disable no-redeclare*/
+
 showHello('greeting', 'TypeScript');
 
 function showHello(divName: string, name: string) {
@@ -5,6 +7,7 @@ function showHello(divName: string, name: string) {
     elt.innerText = `Hello from ${name}`;
 }
 
+// Task 'Types'
 type Book = {
     id: number;
     title: string;
@@ -50,7 +53,7 @@ function getAllBooks(): readonly Book[] {
     return books;
 }
 
-function logFirstAvailable(books: readonly Book[]): void {
+function logFirstAvailable(books: readonly Book[] = getAllBooks()): void {
     console.log(
         `Count books: ${books.length}`,
         `First available book: ${books.find((book) => book.available).title}`,
@@ -59,7 +62,7 @@ function logFirstAvailable(books: readonly Book[]): void {
 
 logFirstAvailable(getAllBooks());
 
-function getBookTitlesByCategory(category: Category): string[] {
+function getBookTitlesByCategory(category: Category = Category.CSS): string[] {
     return getAllBooks()
         .filter((book) => book.category === category)
         .map(({ title }) => title);
@@ -92,3 +95,49 @@ function calcTotalPages(): BigInt {
 }
 
 calcTotalPages();
+
+// Task 'Functions'
+function createCustomerID(name: string, id: number): string {
+    return name + id;
+}
+
+const myID: string = createCustomerID('Ann', 10);
+
+console.log(myID);
+
+let idGenerator: typeof createCustomerID = (name, id) => name + id;
+
+idGenerator = createCustomerID;
+
+console.log(idGenerator('Ann', 10));
+
+
+function createCustomer(name: string, age?: number, city?: string) {
+    console.log(`${name}${age ? ' ' + age : ''}${city ? ' ' + city : ''}`);
+}
+
+createCustomer('Tom');
+createCustomer('Tom', 24);
+createCustomer('Tom', 24, 'Lviv');
+
+console.log(getBookTitlesByCategory());
+logFirstAvailable();
+
+function getBookByID(id: number) {
+    return getAllBooks().find(book => book.id === id);
+}
+
+console.log(getBookByID(1));
+
+function сheckoutBooks(customer: string, ...bookIDs: number[]) {
+    console.log(customer);
+    let titles = [];
+    bookIDs.forEach(id => {
+        const book = getBookByID(id);
+        return book?.available === true ? titles.push(book.title) : null;
+    })
+    return titles;
+}
+
+const myBooks = сheckoutBooks('Ann', 1, 2, 4);
+console.log(myBooks)
