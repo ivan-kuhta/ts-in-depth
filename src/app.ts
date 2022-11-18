@@ -1,5 +1,3 @@
-/*eslint-disable no-redeclare*/
-
 showHello('greeting', 'TypeScript');
 
 function showHello(divName: string, name: string) {
@@ -141,3 +139,38 @@ function сheckoutBooks(customer: string, ...bookIDs: number[]) {
 
 const myBooks = сheckoutBooks('Ann', 1, 2, 4);
 console.log(myBooks)
+
+/* eslint-disable no-redeclare */
+
+function getTitles(author: string): readonly Book[];
+function getTitles(available: boolean): readonly Book[];
+function getTitles(id: number, available: boolean): readonly Book[];
+function getTitles(...[a, b]: [string | boolean] | [number, boolean]): readonly Book[] {
+    const books = getAllBooks();
+    if (a) {
+        return books.filter((book) => book.available === b && book.id === a);
+    }
+    if (typeof a === 'string') {
+        return books.filter((book) => book.author === a);
+    } else if (typeof a === 'boolean') {
+        return books.filter((book) => book.available === a);
+    }
+}
+
+let checkedOutBooks = getTitles(false);
+
+console.log(checkedOutBooks);
+
+/* eslint-enable no-redeclare */
+
+function assertStringValue(value: any): boolean {
+    if (typeof value !== "string") throw "value should have been a string";
+    return true;
+}
+
+function bookTitleTransform(title: any) {
+    if (assertStringValue(title)) return [...title].reverse().join('');
+}
+
+console.log(bookTitleTransform("Title my book"));
+console.log(bookTitleTransform(123414));
