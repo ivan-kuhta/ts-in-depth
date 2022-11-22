@@ -6,13 +6,35 @@ function showHello(divName: string, name: string) {
 }
 
 // Task 'Types'
-type Book = {
+interface Book {
     id: number;
     title: string;
     author: string;
     available: boolean;
     category: Category;
+    pages?: number;
+    markDamaged?: DamageLogger;
 };
+
+interface DamageLogger {
+    (reason: string): void
+}
+
+interface Person {
+    name: string,
+    email: string
+}
+
+interface Author extends Person {
+    numBooksPublished: number
+}
+
+interface Librarian extends Person {
+    department: string,
+    assistCustomer(custName: string, bookTitle: string): void
+}
+
+type BookProperties = keyof Book;
 
 enum Category {
     JavaScript,
@@ -121,7 +143,7 @@ createCustomer('Tom', 24, 'Lviv');
 console.log(getBookTitlesByCategory());
 logFirstAvailable();
 
-function getBookByID(id: number) {
+function getBookByID(id: Book['id']): Book {
     return getAllBooks().find(book => book.id === id);
 }
 
@@ -173,4 +195,63 @@ function bookTitleTransform(title: any) {
 }
 
 console.log(bookTitleTransform("Title my book"));
-console.log(bookTitleTransform(123414));
+// console.log(bookTitleTransform(123414));
+
+function printBook(book: Book) {
+    console.log(`${book.title} by ${book.author}`)
+}
+
+const myBook: Book = {
+    id: 5,
+    title: 'Colors, Backgrounds, and Gradients',
+    author: 'Eric A. Meyer',
+    available: true,
+    category: Category.CSS,
+    pages: 200,
+    markDamaged: (reason: string) => console.log(`Damaged: ${reason}`),
+};
+
+printBook(myBook);
+myBook.markDamaged('missing back cover');
+
+const logDamage: DamageLogger = (value) => console.log(value);
+
+logDamage('10 damage');
+
+const favoriteAuthor: Author = {
+    name: "Stiven",
+    email: 'stiven@gmail.com',
+    numBooksPublished: 1000
+}
+
+const favoriteLibrarian: Librarian = {
+    name: "West Library",
+    email: 'west_l@gmail.com',
+    department: 'Science',
+    assistCustomer: () => {
+
+    }
+}
+
+const offer: any = {
+    book: {
+        title: 'Essential TypeScript',
+    },
+};
+
+console.log(
+    offer?.magazine,
+    offer?.magazine?.getTitle?.(),
+    offer?.book?.getTitle?.(),
+    offer?.book?.authors?.[0]
+)
+
+function getProperty(book: Book, property: BookProperties): any {
+    const value = book[property];
+    if (typeof value !== 'function') return value;
+    return value.name;
+}
+
+console.log(getProperty(myBook, 'title'));
+console.log(getProperty(myBook, 'markDamaged'));
+// getProperty(getAllBooks()[0], 'isbn');
