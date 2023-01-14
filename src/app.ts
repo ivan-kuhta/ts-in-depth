@@ -143,7 +143,7 @@ createCustomer('Tom', 24, 'Lviv');
 console.log(getBookTitlesByCategory());
 logFirstAvailable();
 
-function getBookByID(id: Book['id']): Book {
+function getBookByID(id: Book['id']): BookOrUndefined {
     return getAllBooks().find(book => book.id === id);
 }
 
@@ -224,7 +224,7 @@ const favoriteAuthor: Author = {
     numBooksPublished: 1000
 }
 
-const favoriteLibrarian: Librarian = {
+let favoriteLibrarian: Librarian = {
     name: "West Library",
     email: 'west_l@gmail.com',
     department: 'Science',
@@ -255,3 +255,116 @@ function getProperty(book: Book, property: BookProperties): any {
 console.log(getProperty(myBook, 'title'));
 console.log(getProperty(myBook, 'markDamaged'));
 // getProperty(getAllBooks()[0], 'isbn');
+
+// 05 Classes
+abstract class ReferenceItem {
+    // title: string;
+    // year: number;
+    // constructor(newTitle: string, newYear: number) {
+    //     this.title = newTitle;
+    //     this.year = newYear;
+    //     console.log('Creating a new ReferenceItem...');
+    // }
+    #id: number;
+    private _publisher: string;
+    static department: string = 'Model';
+    get publisher() {
+        return this._publisher.toUpperCase();
+    }
+    set publisher(newPublisher: string) {
+        this._publisher = newPublisher;
+    }
+    constructor(public title: string, protected year: number, id: number) {
+        this.#id = id;
+    }
+    getId() {
+        return this.#id;
+    }
+    printItem() {
+        console.log(`${this.title} was published in ${this.year} in ${ReferenceItem.department} department`);
+    }
+
+    abstract printCitation(): void;
+}
+
+// const ref = new ReferenceItem('This magazine', 2021, 1);
+
+// ref.printItem();
+
+// ref.publisher = 'Publisher';
+
+// console.log(ref.publisher);
+
+// console.log(
+//     ref,
+//     ref.getId()
+// );
+
+class Encyclopedia extends ReferenceItem {
+    constructor(title: string, year: number, id: number, public edition: number) {
+        super(title, year, id);
+    }
+
+    override printItem() {
+        super.printItem();
+        console.log(`Edition: ${this.edition} (${this.year})`);
+    }
+
+    printCitation(): void {
+        console.log(`${this.title} – ${this.year}`)
+    }
+}
+
+const refBook = new Encyclopedia(`World of Animals`, 2022, 2, 3);
+
+refBook.printItem();
+
+refBook.printCitation();
+
+class UniversityLibrarian implements Librarian {
+    name: string;
+    email: string;
+    department: string;
+    assistCustomer(custName: string, bookTitle: string): void {
+        console.log(`${this.name} is assisting ${custName} with the book ${bookTitle}`);
+    }
+}
+
+favoriteLibrarian = new UniversityLibrarian();
+
+favoriteLibrarian.name = 'Library';
+favoriteLibrarian.assistCustomer('Customer', 'Book Title');
+
+type PersonBook = Person & Book;
+type BookOrUndefined = Book | undefined;
+
+let personalBook: PersonBook = {
+    name: 'Name',
+    email: 'email@gmail.com',
+    id: 1,
+    title: 'JavaScript',
+    author: 'Conan',
+    available: true,
+    category: Category.JavaScript
+}
+
+console.log(personalBook);
+
+interface TOptions {
+    duration?: number,
+    speed?: number
+}
+
+function setDefaultConfig(options: TOptions) {
+    options.duration ??= 100;
+    options.speed ??= 60;
+    return options;
+}
+
+const options = {
+    duration: 1000
+}
+
+setDefaultConfig(options)
+
+console.log(options);
