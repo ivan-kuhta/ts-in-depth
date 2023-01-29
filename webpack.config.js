@@ -1,7 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {
+    CleanWebpackPlugin
+} = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -59,4 +61,8 @@ module.exports = {
 
     // switch on source-map as a separate file: bundle.js.map
     devtool: 'source-map',
+
+    experiments: {
+        topLevelAwait: true
+    }
 };
