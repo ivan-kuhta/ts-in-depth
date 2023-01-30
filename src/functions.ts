@@ -138,3 +138,13 @@ export function printRefBook(data: any): void {
 
   data.printItem();
 }
+
+export function purge<T>(inventory: T[]): T[] {
+  return inventory.slice(2);
+}
+
+export function getObjectProperty<TObject, TKey extends keyof TObject>(obj: TObject, key: TKey): TObject[TKey] | string {
+  const value = obj[key];
+
+  return typeof value === 'function' ? value.name : value;
+}

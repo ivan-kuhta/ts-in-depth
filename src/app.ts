@@ -1,8 +1,8 @@
-import { RefBook, ReferenceItem, UL, Library } from "./classes";
+import { RefBook, ReferenceItem, UL, Library, Shelf } from "./classes";
 import { Category } from "./enums";
-import { bookTitleTransform, calcTotalPages, createCustomer, createCustomerID, getAllBooks, getBookByID, getBookTitlesByCategory, getProperty, getTitles, logBookTitles, logFirstAvailable, printBook, printRefBook, setDefaultConfig, сheckoutBooks } from "./functions";
-import { Author, Book, Librarian, Logger } from "./interfaces";
-import { PersonBook } from "./types";
+import { bookTitleTransform, calcTotalPages, createCustomer, createCustomerID, getAllBooks, getBookByID, getBookTitlesByCategory, getObjectProperty, getProperty, getTitles, logBookTitles, logFirstAvailable, printBook, printRefBook, purge, setDefaultConfig, сheckoutBooks } from "./functions";
+import { Author, Book, Librarian, Logger, Magazine } from "./interfaces";
+import { BookRequiredFields, PersonBook, UpdatedBook, СreateCustomerFunctionType } from "./types";
 
 // ========================================================
 
@@ -191,3 +191,57 @@ showHello('greeting', 'TypeScript');
 // };
 
 // console.log(library);
+
+// Task 07.01
+const inventory: Book[] = [
+    { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
+    { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
+    { id: 12, title: '8-Bit Graphics with Cobol', author: 'A. B.', available: true, category: Category.Software },
+    { id: 13, title: 'Cool autoexec.bat Scripts!', author: 'C. D.', available: true, category: Category.Software }
+];
+// console.log(purge(inventory));
+// console.log(purge([1, 2, 3, 4, 5]));
+
+// Task 07.02
+// const bookShelf: Shelf<Book> = new Shelf();
+// inventory.forEach((item) => bookShelf.add(item));
+// console.log(bookShelf.getFirst())
+
+// const magazines: Magazine[] = [
+//     { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+//     { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
+//     { title: 'Five Points', publisher: 'GSU' }
+// ];
+// const magazineShelf: Shelf<Magazine> = new Shelf();
+// magazines.forEach((item) => magazineShelf.add(item));
+// console.log(magazineShelf.getFirst());
+
+// Task 07.03
+// magazineShelf.printTitles();
+// console.log(magazineShelf.find('Five Points'));
+
+// const obj = {
+//     title: 'Title',
+//     price: 2000
+// };
+
+// console.log(getObjectProperty(obj, 'title'));
+
+// Task 07.04
+const bookRequired: BookRequiredFields = {
+    id: 1,
+    title: 'Title',
+    author: 'Author',
+    available: true,
+    category: Category.Software,
+    pages: 1000,
+    markDamaged: () => console.log('damage')
+}
+
+const updatedBook: UpdatedBook = {
+    title: 'Title Updated'
+};
+
+let params: Parameters<СreateCustomerFunctionType> = ['Anna', 12, 'Lviv'];
+
+createCustomer(...params);
