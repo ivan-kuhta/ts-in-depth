@@ -1,4 +1,4 @@
-import { createCustomer } from "./functions";
+import { createCustomer, getBooksByCategoryPromise } from "./functions";
 import { Author, Book, Person } from "./interfaces";
 
 type BookProperties = keyof Book;
@@ -34,5 +34,11 @@ export type BookRequiredProps = RequiredProps<Book>;
 export type BookOptionalProps = OptionalProps<Book>;
 export type BookRequiredPropsType = RemoveProps<Book, BookOptionalProps>;
 export type BookOptionalPropsType = RemoveProps<Book, BookRequiredProps>;
+
+export type Unpromisify<T> = T extends Promise<infer R> ? R : never;
+export type UnArray<T> = T extends Array<infer R> ? R : never;
+
+export type PromiseArray = Unpromisify<ReturnType<typeof getBooksByCategoryPromise>>;
+export type PromiseItem = UnArray<Unpromisify<ReturnType<typeof getBooksByCategoryPromise>>>;
 
 export { BookProperties, PersonBook, BookOrUndefined, BookRequiredFields, UpdatedBook, AuthorWoEmail, СreateCustomerFunctionType }

@@ -1,7 +1,7 @@
 import { RefBook, ReferenceItem, UL, Library, Shelf } from "./classes";
 import Encyclopedia from "./classes/encyclopedia";
 import { Category } from "./enums";
-import { bookTitleTransform, calcTotalPages, createCustomer, createCustomerID, getAllBooks, getBookByID, getBookTitlesByCategory, getObjectProperty, getProperty, getTitles, logBookTitles, logFirstAvailable, printBook, printRefBook, purge, setDefaultConfig, сheckoutBooks } from "./functions";
+import { bookTitleTransform, calcTotalPages, createCustomer, createCustomerID, getAllBooks, getBookByID, getBooksByCategory, getBooksByCategoryPromise, getBookTitlesByCategory, getObjectProperty, getProperty, getTitles, logBookTitles, logCategorySearch, logFirstAvailable, logSearchResults, printBook, printRefBook, purge, setDefaultConfig, сheckoutBooks } from "./functions";
 import { Author, Book, Librarian, Logger, Magazine } from "./interfaces";
 import { BookRequiredFields, PersonBook, UpdatedBook, СreateCustomerFunctionType } from "./types";
 
@@ -282,3 +282,27 @@ const inventory: Book[] = [
 // // refBook.copies = 4.5;
 // refBook.copies = 5;
 // console.log(refBook.copies);
+
+// Task 09.01
+// console.log('Begin');
+// getBooksByCategory(Category.JavaScript, logCategorySearch);
+// getBooksByCategory(Category.Software, logCategorySearch);
+// console.log('End');
+
+// Task 09.02
+// console.log('Begin');
+// getBooksByCategoryPromise(Category.JavaScript)
+//     .then((titles) => Promise.resolve(titles.length))
+//     .then((count) => console.log(count))
+//     .catch((error) => console.log(error));
+// getBooksByCategoryPromise(Category.Software)
+//     .then((titles) => Promise.resolve(titles.length))
+//     .then((count) => console.log(count))
+//     .catch((error) => console.log(error));
+// console.log('End');
+
+// Task 09.03
+// console.log('Begin');
+// logSearchResults(Category.JavaScript).catch(e => console.log(e));
+// logSearchResults(Category.Software).catch(e => console.log(e));
+// console.log('End');
