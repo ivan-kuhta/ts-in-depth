@@ -1,4 +1,5 @@
 import { RefBook, ReferenceItem, UL, Library, Shelf } from "./classes";
+import Encyclopedia from "./classes/encyclopedia";
 import { Category } from "./enums";
 import { bookTitleTransform, calcTotalPages, createCustomer, createCustomerID, getAllBooks, getBookByID, getBookTitlesByCategory, getObjectProperty, getProperty, getTitles, logBookTitles, logFirstAvailable, printBook, printRefBook, purge, setDefaultConfig, сheckoutBooks } from "./functions";
 import { Author, Book, Librarian, Logger, Magazine } from "./interfaces";
@@ -228,20 +229,56 @@ const inventory: Book[] = [
 // console.log(getObjectProperty(obj, 'title'));
 
 // Task 07.04
-const bookRequired: BookRequiredFields = {
-    id: 1,
-    title: 'Title',
-    author: 'Author',
-    available: true,
-    category: Category.Software,
-    pages: 1000,
-    markDamaged: () => console.log('damage')
-}
+// const bookRequired: BookRequiredFields = {
+//     id: 1,
+//     title: 'Title',
+//     author: 'Author',
+//     available: true,
+//     category: Category.Software,
+//     pages: 1000,
+//     markDamaged: () => console.log('damage')
+// }
 
-const updatedBook: UpdatedBook = {
-    title: 'Title Updated'
-};
+// const updatedBook: UpdatedBook = {
+//     title: 'Title Updated'
+// };
 
-let params: Parameters<СreateCustomerFunctionType> = ['Anna', 12, 'Lviv'];
+// let params: Parameters<СreateCustomerFunctionType> = ['Anna', 12, 'Lviv'];
+// createCustomer(...params);
 
-createCustomer(...params);
+
+// Task 08.01
+// const favoriteLibrarian = new UL.UniversityLibrarian();
+// UL.UniversityLibrarian['a'] = 2;
+
+// Task 08.02
+// const fLibrarian = new UL.UniversityLibrarian();
+// fLibrarian.name = 'Anna';
+// fLibrarian['printLibrarian']()
+
+// Task 08.03
+// const favoriteLibrarian = new UL.UniversityLibrarian();
+// favoriteLibrarian.assistFaculty = null;
+// favoriteLibrarian.teachCommunity = null;
+
+// Task 08.04
+// const encyclopedia = new Encyclopedia('Title', 2022, 2, 12);
+// encyclopedia.printItem();
+
+// Task 08.05
+// const favoriteLibrarian = new UL.UniversityLibrarian();
+// favoriteLibrarian.name = 'Name';
+// favoriteLibrarian.assistCustomer('Anna', 'Title');
+
+// Task 08.06
+// const favoriteLibrarian = new UL.UniversityLibrarian();
+// favoriteLibrarian.name = 'Name';
+// console.log(favoriteLibrarian);
+
+// Task 08.07
+// const refBook: RefBook = new RefBook('Learn Typescript', 2023, 1, 1);
+// // refBook.copies = -10;
+// // refBook.copies = 0;
+// // refBook.copies = 4.5;
+// refBook.copies = 5;
+// console.log(refBook.copies);
